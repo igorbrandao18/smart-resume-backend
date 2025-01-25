@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Param, Put, HttpCode, HttpStatus, Get, NotFoundException, Query } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,9 +17,16 @@ export class UsersController {
   ) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new user' })
-  @ApiResponse({ status: 201, description: 'User created successfully', type: User })
-  @ApiResponse({ status: 400, description: 'Bad request - Email or phone already registered' })
+  @ApiOperation({ summary: 'Criar um novo usuário' })
+  @ApiResponse({ 
+    status: 201, 
+    description: 'Usuário criado com sucesso',
+    type: User 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Dados inválidos' 
+  })
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
@@ -65,12 +72,25 @@ export class UsersController {
     return user;
   }
 
-  @Post(':id/verify-email')
-  @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Verify user email' })
-  @ApiResponse({ status: 200, description: 'Email verified successfully', type: User })
-  @ApiResponse({ status: 400, description: 'Invalid or expired verification code' })
-  @ApiResponse({ status: 404, description: 'User not found' })
+  @Post('verify-email/:id')
+  @ApiOperation({ summary: 'Verificar email do usuário' })
+  @ApiParam({ 
+    name: 'id', 
+    description: 'ID do usuário' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Email verificado com sucesso',
+    type: User 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Código inválido' 
+  })
+  @ApiResponse({ 
+    status: 404, 
+    description: 'Usuário não encontrado' 
+  })
   async verifyEmail(
     @Param('id') id: string,
     @Body() verifyEmailDto: VerifyEmailDto,
@@ -79,10 +99,24 @@ export class UsersController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Update user information' })
-  @ApiResponse({ status: 200, description: 'User updated successfully', type: User })
-  @ApiResponse({ status: 400, description: 'Bad request - Invalid data format' })
-  @ApiResponse({ status: 404, description: 'User not found' })
+  @ApiOperation({ summary: 'Atualizar informações do usuário' })
+  @ApiParam({ 
+    name: 'id', 
+    description: 'ID do usuário' 
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Usuário atualizado com sucesso',
+    type: User 
+  })
+  @ApiResponse({ 
+    status: 400, 
+    description: 'Dados inválidos' 
+  })
+  @ApiResponse({ 
+    status: 404, 
+    description: 'Usuário não encontrado' 
+  })
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,

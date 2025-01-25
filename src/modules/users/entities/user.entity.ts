@@ -1,43 +1,92 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 @Entity('users')
 export class User {
+  @ApiProperty({
+    description: 'ID único do usuário',
+    example: '123e4567-e89b-12d3-a456-426614174000'
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @ApiProperty({
+    description: 'Nome completo do usuário',
+    example: 'João Silva'
+  })
+  @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ unique: true })
+  @ApiProperty({
+    description: 'Email principal do usuário',
+    example: 'joao.silva@exemplo.com'
+  })
+  @Column({ type: 'varchar', unique: true })
   email: string;
 
-  @Column({ unique: true })
+  @ApiProperty({
+    description: 'Número de celular do usuário',
+    example: '11999999999'
+  })
+  @Column({ type: 'varchar', unique: true })
   phone: string;
 
-  @Column({ nullable: true })
+  @ApiPropertyOptional({
+    description: 'Email secundário do usuário',
+    example: 'joao.trabalho@exemplo.com'
+  })
+  @Column({ type: 'varchar', nullable: true })
   secondaryEmail?: string;
 
-  @Column({ nullable: true })
+  @ApiPropertyOptional({
+    description: 'CNPJ do usuário',
+    example: '12345678901234'
+  })
+  @Column({ type: 'varchar', nullable: true })
   cnpj?: string;
 
-  @Column({ nullable: true })
+  @ApiPropertyOptional({
+    description: 'CEP do endereço',
+    example: '01001000'
+  })
+  @Column({ type: 'varchar', nullable: true })
+  zipCode?: string;
+
+  @ApiPropertyOptional({
+    description: 'Nome da rua',
+    example: 'Praça da Sé'
+  })
+  @Column({ type: 'varchar', nullable: true })
   street?: string;
 
-  @Column({ nullable: true })
+  @ApiPropertyOptional({
+    description: 'Número do endereço',
+    example: '1'
+  })
+  @Column({ type: 'varchar', nullable: true })
   number?: string;
 
-  @Column({ nullable: true })
+  @ApiPropertyOptional({
+    description: 'Nome do bairro',
+    example: 'Sé'
+  })
+  @Column({ type: 'varchar', nullable: true })
   neighborhood?: string;
 
-  @Column({ nullable: true })
+  @ApiPropertyOptional({
+    description: 'Nome da cidade',
+    example: 'São Paulo'
+  })
+  @Column({ type: 'varchar', nullable: true })
   city?: string;
 
-  @Column({ nullable: true })
+  @ApiPropertyOptional({
+    description: 'Sigla do estado',
+    example: 'SP'
+  })
+  @Column({ type: 'varchar', nullable: true })
   state?: string;
-
-  @Column({ nullable: true })
-  zipCode?: string;
 
   @Column({ type: 'decimal', precision: 10, scale: 8, nullable: true })
   latitude?: number;
@@ -45,20 +94,32 @@ export class User {
   @Column({ type: 'decimal', precision: 11, scale: 8, nullable: true })
   longitude?: number;
 
-  @Column({ default: false })
+  @ApiProperty({
+    description: 'Indica se o email foi verificado',
+    example: false
+  })
+  @Column({ type: 'boolean', default: false })
   emailVerified: boolean;
 
-  @Column({ nullable: true })
   @Exclude()
+  @Column({ type: 'varchar', nullable: true })
   verificationCode?: string;
 
-  @Column({ nullable: true })
   @Exclude()
+  @Column({ type: 'timestamp', nullable: true })
   verificationCodeExpires?: Date;
 
-  @CreateDateColumn()
+  @ApiProperty({
+    description: 'Data de criação do registro',
+    example: '2024-01-24T22:38:00.000Z'
+  })
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn()
+  @ApiProperty({
+    description: 'Data da última atualização do registro',
+    example: '2024-01-24T22:38:00.000Z'
+  })
+  @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 } 

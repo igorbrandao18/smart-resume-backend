@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -14,9 +15,10 @@ async function bootstrap() {
   app.enableCors();
 
   const config = new DocumentBuilder()
-    .setTitle('User Registration API')
-    .setDescription('API for user registration system')
+    .setTitle('Sistema de Cadastro de Usuários')
+    .setDescription('API para cadastro e gerenciamento de usuários com validação de email e endereço')
     .setVersion('1.0')
+    .addTag('users', 'Operações de cadastro e atualização de usuários')
     .build();
   
   const document = SwaggerModule.createDocument(app, config);

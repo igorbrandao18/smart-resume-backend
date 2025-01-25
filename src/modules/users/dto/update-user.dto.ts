@@ -2,53 +2,71 @@ import { IsString, IsEmail, IsOptional, Length, Matches, IsLatitude, IsLongitude
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class UpdateUserDto {
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Email secundário do usuário',
+    example: 'joao.trabalho@exemplo.com'
+  })
   @IsOptional()
-  @IsEmail()
+  @IsEmail({}, { message: 'Email secundário inválido' })
   secondaryEmail?: string;
 
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  @Length(14, 14)
-  @Matches(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, {
-    message: 'CNPJ must be in format 99.999.999/9999-99',
+  @ApiPropertyOptional({
+    description: 'CNPJ do usuário',
+    example: '12345678901234'
   })
+  @IsOptional()
+  @Length(14, 14, { message: 'O CNPJ deve ter 14 dígitos' })
+  @Matches(/^\d{14}$/, { message: 'CNPJ inválido' })
   cnpj?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Nome da rua',
+    example: 'Praça da Sé'
+  })
   @IsOptional()
-  @IsString()
+  @IsString({ message: 'A rua deve ser uma string' })
   street?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Número do endereço',
+    example: '1'
+  })
   @IsOptional()
-  @IsString()
+  @IsString({ message: 'O número deve ser uma string' })
   number?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Nome do bairro',
+    example: 'Sé'
+  })
   @IsOptional()
-  @IsString()
+  @IsString({ message: 'O bairro deve ser uma string' })
   neighborhood?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Nome da cidade',
+    example: 'São Paulo'
+  })
   @IsOptional()
-  @IsString()
+  @IsString({ message: 'A cidade deve ser uma string' })
   city?: string;
 
-  @ApiPropertyOptional()
+  @ApiPropertyOptional({
+    description: 'Sigla do estado',
+    example: 'SP'
+  })
   @IsOptional()
-  @IsString()
-  @Length(2, 2)
+  @Length(2, 2, { message: 'O estado deve ter 2 caracteres' })
+  @Matches(/^[A-Z]{2}$/, { message: 'Estado inválido' })
   state?: string;
 
-  @ApiPropertyOptional()
-  @IsOptional()
-  @IsString()
-  @Length(8, 9)
-  @Matches(/^\d{5}-?\d{3}$/, {
-    message: 'CEP must be in format 99999-999',
+  @ApiPropertyOptional({
+    description: 'CEP do endereço',
+    example: '01001000'
   })
+  @IsOptional()
+  @Length(8, 8, { message: 'O CEP deve ter 8 dígitos' })
+  @Matches(/^\d{8}$/, { message: 'CEP inválido' })
   zipCode?: string;
 
   @ApiPropertyOptional()

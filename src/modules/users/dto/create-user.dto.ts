@@ -1,20 +1,30 @@
-import { IsString, IsEmail, IsOptional, Length, Matches, IsNotEmpty } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'João Silva' })
-  @IsString()
-  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Nome completo do usuário',
+    example: 'João Silva'
+  })
+  @IsNotEmpty({ message: 'O nome é obrigatório' })
+  @IsString({ message: 'O nome deve ser uma string' })
   name: string;
 
-  @ApiProperty({ example: 'joao@email.com' })
-  @IsEmail()
+  @ApiProperty({
+    description: 'Email do usuário',
+    example: 'joao.silva@exemplo.com'
+  })
+  @IsNotEmpty({ message: 'O email é obrigatório' })
+  @IsEmail({}, { message: 'Email inválido' })
   email: string;
 
-  @ApiProperty({ example: '(11) 99999-9999' })
-  @IsString()
-  @Matches(/^\(\d{2}\) \d{5}-\d{4}$/, {
-    message: 'Phone must be in format (99) 99999-9999',
+  @ApiProperty({
+    description: 'Número de celular do usuário',
+    example: '11999999999'
+  })
+  @IsNotEmpty({ message: 'O celular é obrigatório' })
+  @Matches(/^[1-9]{2}[0-9]{9}$/, {
+    message: 'O celular deve estar no formato 11999999999'
   })
   phone: string;
 } 

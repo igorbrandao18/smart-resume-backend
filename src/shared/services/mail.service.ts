@@ -7,19 +7,33 @@ export class MailService {
   private transporter: nodemailer.Transporter;
 
   constructor(private configService: ConfigService) {
+    const host = this.configService.get<string>('MAIL_HOST');
+    const port = this.configService.get<number>('MAIL_PORT');
+    const user = this.configService.get<string>('MAIL_USER');
+    const pass = this.configService.get<string>('MAIL_PASS');
+
+    if (!host || !port || !user || !pass) {
+      throw new Error('Mail configuration not found');
+    }
+
     this.transporter = nodemailer.createTransport({
-      host: this.configService.get('mail.host'),
-      port: this.configService.get('mail.port'),
+      host,
+      port,
       auth: {
-        user: this.configService.get('mail.auth.user'),
-        pass: this.configService.get('mail.auth.pass'),
+        user,
+        pass,
       },
     });
   }
 
   async sendVerificationEmail(to: string, code: string): Promise<void> {
+    const user = this.configService.get<string>('MAIL_USER');
+    if (!user) {
+      throw new Error('Mail configuration not found');
+    }
+
     await this.transporter.sendMail({
-      from: this.configService.get('mail.auth.user'),
+      from: user,
       to,
       subject: 'Verificação de Email',
       html: `
@@ -39,8 +53,13 @@ export class MailService {
   }
 
   async sendWelcomeEmail(to: string, name: string): Promise<void> {
+    const user = this.configService.get<string>('MAIL_USER');
+    if (!user) {
+      throw new Error('Mail configuration not found');
+    }
+
     await this.transporter.sendMail({
-      from: this.configService.get('mail.auth.user'),
+      from: user,
       to,
       subject: 'Bem-vindo!',
       html: `
