@@ -21,7 +21,9 @@
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:cov": "vitest run --coverage",
-    "test:debug": "vitest --inspect-brk"
+    "test:debug": "vitest --inspect-brk",
+    "simulate": "ts-node scripts/simulate-flow.ts",
+    "test:interactive": "ts-node scripts/interactive-test.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
