@@ -23,7 +23,8 @@
     "test:cov": "vitest run --coverage",
     "test:debug": "vitest --inspect-brk",
     "simulate": "ts-node scripts/simulate-flow.ts",
-    "test:interactive": "ts-node scripts/interactive-test.ts"
+    "test:interactive": "ts-node scripts/interactive-test.ts",
+    "test:mail": "ts-node scripts/test-mail.ts"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
