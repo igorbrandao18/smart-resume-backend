@@ -16,9 +16,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Sistema de Cadastro de Usuários')
-    .setDescription('API para cadastro e gerenciamento de usuários com validação de email e endereço')
+    .setDescription('API para cadastro e gerenciamento de usuários com validação de email, endereço e CNPJ')
     .setVersion('1.0')
-    .addTag('users', 'Operações de cadastro e atualização de usuários')
+    .addTag('users', 'Operações relacionadas a usuários, incluindo consulta de CEP e CNPJ')
     .build();
   
   const document = SwaggerModule.createDocument(app, config);

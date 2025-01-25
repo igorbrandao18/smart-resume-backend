@@ -7,7 +7,7 @@ import { VerifyEmailDto } from './dto/verify-email.dto';
 import { ResendCodeDto } from './dto/resend-code.dto';
 import { User } from './entities/user.entity';
 import { ViaCEPService, ViaCEPResponse } from '../../shared/services/viacep.service';
-import { CNPJService, CNPJResponse } from '../../shared/services/cnpj.service';
+import { CNPJWSService, CNPJWSResponse } from '../../shared/services/cnpj-ws.service';
 
 @ApiTags('users')
 @Controller('users')
@@ -15,7 +15,7 @@ export class UsersController {
   constructor(
     private readonly usersService: UsersService,
     private readonly viaCEPService: ViaCEPService,
-    private readonly cnpjService: CNPJService
+    private readonly cnpjWSService: CNPJWSService
   ) {}
 
   @Post()
@@ -54,10 +54,22 @@ export class UsersController {
 
   @Get('cnpj/:cnpj')
   @ApiOperation({ summary: 'Get company data by CNPJ' })
-  @ApiResponse({ status: 200, description: 'Company data found' })
+  @ApiParam({
+    name: 'cnpj',
+    description: 'CNPJ da empresa (com ou sem caracteres especiais)',
+    example: '41.305.206/0001-07'
+  })
+  @ApiResponse({ 
+    status: 200, 
+    description: 'Company data found',
+    type: CNPJWSResponse
+  })
   @ApiResponse({ status: 404, description: 'CNPJ not found' })
-  async getCNPJData(@Param('cnpj') cnpj: string): Promise<Partial<CNPJResponse>> {
-    return this.cnpjService.getCNPJData(cnpj);
+  @ApiResponse({ status: 400, description: 'Invalid CNPJ' })
+  @ApiResponse({ status: 429, description: 'Too many requests - Rate limit exceeded' })
+  @ApiResponse({ status: 500, description: 'Internal server error' })
+  async getCNPJData(@Param('cnpj') cnpj: string): Promise<Partial<CNPJWSResponse>> {
+    return this.cnpjWSService.getCNPJData(cnpj);
   }
 
   @Post('resend-verification')
