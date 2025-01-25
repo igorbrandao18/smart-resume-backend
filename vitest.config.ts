@@ -7,7 +7,7 @@ export default defineConfig({
     globals: true,
     root: './',
     environment: 'node',
-    include: ['**/*.spec.ts'],
+    include: ['**/*.{spec,test}.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -17,6 +17,10 @@ export default defineConfig({
     alias: {
       '@': resolve(__dirname, './src'),
     },
+    extensions: ['.ts', '.js'],
   },
   plugins: [swc.vite()],
+  optimizeDeps: {
+    include: ['@nestjs/testing', '@nestjs/common', 'axios'],
+  },
 }); 
