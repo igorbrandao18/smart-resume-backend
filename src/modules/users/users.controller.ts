@@ -7,13 +7,15 @@ import { VerifyEmailDto } from './dto/verify-email.dto';
 import { ResendCodeDto } from './dto/resend-code.dto';
 import { User } from './entities/user.entity';
 import { ViaCEPService, ViaCEPResponse } from '../../shared/services/viacep.service';
+import { CNPJService, CNPJResponse } from '../../shared/services/cnpj.service';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
-    private readonly viaCEPService: ViaCEPService
+    private readonly viaCEPService: ViaCEPService,
+    private readonly cnpjService: CNPJService
   ) {}
 
   @Post()
@@ -48,6 +50,14 @@ export class UsersController {
   @ApiResponse({ status: 404, description: 'CEP not found' })
   async getAddressByCEP(@Param('cep') cep: string): Promise<Partial<ViaCEPResponse>> {
     return this.viaCEPService.getAddressByCEP(cep);
+  }
+
+  @Get('cnpj/:cnpj')
+  @ApiOperation({ summary: 'Get company data by CNPJ' })
+  @ApiResponse({ status: 200, description: 'Company data found' })
+  @ApiResponse({ status: 404, description: 'CNPJ not found' })
+  async getCNPJData(@Param('cnpj') cnpj: string): Promise<Partial<CNPJResponse>> {
+    return this.cnpjService.getCNPJData(cnpj);
   }
 
   @Post('resend-verification')
