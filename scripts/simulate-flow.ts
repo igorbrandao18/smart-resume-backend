@@ -12,16 +12,32 @@ const rl = readline.createInterface({
 
 const question = (query: string) => new Promise((resolve) => rl.question(query, resolve));
 
+// Helper function to generate unique user data
+function generateUniqueUserData() {
+  const timestamp = Date.now();
+  return {
+    name: `João Silva ${timestamp}`,
+    email: `joao.silva.${timestamp}@example.com`,
+    phone: `11${timestamp.toString().slice(-9)}`, // Uses last 9 digits of timestamp
+    secondaryEmail: `joao.silva.${timestamp}.work@example.com`,
+    cnpj: '12345678000190',
+    zipCode: '01001000'
+  };
+}
+
 async function simulateUserRegistration() {
   try {
     console.log('\n🚀 Iniciando simulação do fluxo de cadastro...\n');
 
+    // Generate unique user data
+    const userData = generateUniqueUserData();
+
     // 1. Cadastro inicial
     console.log('📝 Etapa 1: Cadastro inicial do usuário');
     const createUserResponse = await axios.post(`${API_URL}/users`, {
-      name: 'João Silva',
-      email: 'joao.silva@example.com',
-      phone: '11999887766'
+      name: userData.name,
+      email: userData.email,
+      phone: userData.phone
     });
 
     const userId = createUserResponse.data.id;
@@ -43,9 +59,9 @@ async function simulateUserRegistration() {
     // 3. Atualização dos dados
     console.log('📝 Etapa 3: Atualização dos dados do usuário');
     const updateUserResponse = await axios.put(`${API_URL}/users/${userId}`, {
-      secondaryEmail: 'joao.silva.trabalho@example.com',
-      cnpj: '12345678000190',
-      zipCode: '01001000'
+      secondaryEmail: userData.secondaryEmail,
+      cnpj: userData.cnpj,
+      zipCode: userData.zipCode
     });
 
     console.log('✅ Dados atualizados com sucesso!');
