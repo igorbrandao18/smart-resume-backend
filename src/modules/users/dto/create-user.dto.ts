@@ -4,7 +4,8 @@ import { ApiProperty } from '@nestjs/swagger';
 export class CreateUserDto {
   @ApiProperty({
     description: 'Nome completo do usuário',
-    example: 'João Silva'
+    example: 'João Silva',
+    required: true
   })
   @IsNotEmpty({ message: 'O nome é obrigatório' })
   @IsString({ message: 'O nome deve ser uma string' })
@@ -12,7 +13,8 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'Email do usuário',
-    example: 'joao.silva@exemplo.com'
+    example: 'joao.silva@exemplo.com',
+    required: true
   })
   @IsNotEmpty({ message: 'O email é obrigatório' })
   @IsEmail({}, { message: 'Email inválido' })
@@ -20,7 +22,8 @@ export class CreateUserDto {
 
   @ApiProperty({
     description: 'Número de celular do usuário',
-    example: '11999999999'
+    example: '11999999999',
+    required: true
   })
   @IsNotEmpty({ message: 'O celular é obrigatório' })
   @IsString({ message: 'O celular deve ser uma string' })

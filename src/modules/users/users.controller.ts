@@ -19,15 +19,29 @@ export class UsersController {
   ) {}
 
   @Post()
-  @ApiOperation({ summary: 'Criar um novo usuário' })
+  @ApiOperation({ 
+    summary: 'Criar um novo usuário',
+    description: 'Cria um novo usuário com nome, email e telefone. Um código de verificação será enviado para o email.'
+  })
   @ApiResponse({ 
     status: 201, 
     description: 'Usuário criado com sucesso',
-    type: User 
+    type: User,
+    schema: {
+      example: {
+        id: '123e4567-e89b-12d3-a456-426614174000',
+        name: 'João Silva',
+        email: 'joao.silva@exemplo.com',
+        phone: '11999999999',
+        emailVerified: false,
+        createdAt: '2024-01-24T22:38:00.000Z',
+        updatedAt: '2024-01-24T22:38:00.000Z'
+      }
+    }
   })
   @ApiResponse({ 
     status: 400, 
-    description: 'Dados inválidos' 
+    description: 'Dados inválidos ou email/telefone já cadastrado'
   })
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);

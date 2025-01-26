@@ -1,99 +1,153 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Smart Resume Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+API RESTful desenvolvida com NestJS + TypeScript para gerenciamento de perfis profissionais, com funcionalidades avançadas de validação de dados e integração com serviços externos.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Desenvolvido por Igor Brandão.
 
-## Description
+## 🚀 Tecnologias Utilizadas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **NestJS** - Framework Node.js progressivo
+- **TypeScript** - Adiciona tipagem estática ao JavaScript
+- **TypeORM** - ORM para banco de dados
+- **PostgreSQL** - Banco de dados relacional
+- **Swagger** - Documentação da API
+- **Jest + Vitest** - Framework de testes
+- **Class Validator** - Validação de dados
+- **Node Mailer** - Envio de emails
 
-## Project setup
+## 🛠️ Configuração do Ambiente
 
-```bash
-$ pnpm install
+### Pré-requisitos
+
+- Node.js (versão 16 ou superior)
+- pnpm (gerenciador de pacotes)
+- PostgreSQL
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+```env
+# Servidor
+PORT=3000
+NODE_ENV=development
+
+# Banco de dados
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=smart_resume
+
+# Email
+MAIL_HOST=smtp.ethereal.email
+MAIL_PORT=587
+MAIL_USER=seu_usuario
+MAIL_PASS=sua_senha
 ```
 
-## Compile and run the project
+### Instalação
 
-```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+1. Clone o repositório:
+```sh
+git clone https://github.com/igorbrandao18/smart-resume-backend.git
+cd smart-resume-backend
 ```
 
-## Run tests
-
-```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+2. Instale as dependências:
+```sh
+pnpm install
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ pnpm install -g mau
-$ mau deploy
+3. Inicie o servidor de desenvolvimento:
+```sh
+pnpm start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+O servidor estará disponível em `http://localhost:3000`
 
-## Resources
+## 📦 Build para Produção
 
-Check out a few resources that may come in handy when working with NestJS:
+Para criar uma build otimizada para produção:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```sh
+pnpm build
+pnpm start:prod
+```
 
-## Support
+## 🧪 Testes
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Testes Unitários
+```sh
+pnpm test
+```
 
-## Stay in touch
+### Testes E2E
+```sh
+pnpm test:e2e
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Cobertura de Testes
+```sh
+pnpm test:cov
+```
 
-## License
+## 📚 Documentação da API
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+A documentação completa da API está disponível em:
+- Swagger UI: `http://localhost:3000/api`
+- JSON: `http://localhost:3000/api-json`
+
+## 🌟 Funcionalidades
+
+- **Gestão de Usuários**
+  - Cadastro com validação de email
+  - Autenticação segura
+  - Atualização de perfil
+  - Recuperação de senha
+
+- **Validações Externas**
+  - Consulta e validação de CNPJ via API pública
+  - Busca de endereço por CEP (ViaCEP)
+  - Validação de email com código de verificação
+
+- **Segurança**
+  - Validação de dados com class-validator
+  - Sanitização de inputs
+  - Rate limiting
+  - Proteção contra ataques comuns
+
+## 🔄 Integrações
+
+- **ViaCEP**
+  - Busca automática de endereço
+  - Validação de CEP
+
+- **CNPJ.ws**
+  - Consulta de dados empresariais
+  - Validação de CNPJ
+
+- **Serviço de Email**
+  - Envio de códigos de verificação
+  - Templates personalizados
+  - Fila de processamento
+
+## 🏗️ Arquitetura
+
+- **Modular**
+  - Separação clara de responsabilidades
+  - Módulos independentes
+  - Injeção de dependências
+
+- **RESTful**
+  - Endpoints bem definidos
+  - Respostas padronizadas
+  - Status HTTP apropriados
+
+## 👥 Autor
+
+- **Igor Brandão** - *Desenvolvimento Full Stack* - [@igorbrandao18](https://github.com/igorbrandao18)
+
+## 📞 Suporte
+
+Para suporte, abra uma issue no repositório: https://github.com/igorbrandao18/smart-resume-backend
